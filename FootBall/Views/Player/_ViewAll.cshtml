@@ -1,0 +1,69 @@
+﻿@model IEnumerable<FootBall.Models.Player>
+
+    <div class="col-md-8 offset-md-2">
+
+        <h1 class="text-center"><i class=""></i>Каталог футболистов 3.0</h1>
+
+
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sex)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TeamName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DOB)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Country)
+                    </th>
+                    <th>
+                        <a onclick="showInPopup('@Url.Action("AddOrEdit","Player",null,Context.Request.Scheme)','New Player')" class="btn btn-primary text-white"><i class=""></i> New Player</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Sex)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.TeamName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.DOB)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Country)
+                    </td>
+                    <td>
+                        <div>
+                            <a onclick="showInPopup('@Url.Action("AddOrEdit","Player",new {id=item.Id},Context.Request.Scheme)','Update Player')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                            <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                                <input type="hidden" asp-for="@item.Id" />
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
